@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM --platform=linux/amd64 nginx:stable-alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 ADD conf.d /etc/nginx/conf.d
@@ -8,8 +8,8 @@ COPY ./entrypoint.sh /etc/nginx/entrypoint.sh
 RUN chmod +x /etc/nginx/entrypoint.sh
 RUN chmod +x /etc/nginx/nginxReloader.sh
 
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
-RUN apt-get install inotify-tools -y 
+RUN apk update && apk add bash
+RUN apk add inotify-tools
 
-ENTRYPOINT [ "/etc/nginx/entrypoint.sh" ]
+ENTRYPOINT [ "/bin/bash", "/etc/nginx/entrypoint.sh" ]
 CMD ["nginx", "-g", "daemon off;"]
