@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./etc/nginx/nginxReloader.sh &
+/etc/nginx/nginxReloader.sh &
 exec "$@"

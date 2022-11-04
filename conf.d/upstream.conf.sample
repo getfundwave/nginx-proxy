@@ -1,0 +1,4 @@
+upstream activity-upstream {
+      ## Can be connected with "server_default" network
+      server activity-service:8080;
+}

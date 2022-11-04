@@ -1,0 +1,4 @@
+location /api/activity {
+    rewrite ^/api/activity/(.*)?$ /$1  break;
+    proxy_pass http://activity-upstream;
+}

@@ -1,12 +1,16 @@
-FROM --platform=linux/amd64 nginx:stable-alpine
+FROM nginx:stable-alpine
 
-RUN rm /etc/nginx/conf.d/default.conf
-ADD conf.d /etc/nginx/conf.d
-COPY ./nginxReloader.sh /etc/nginx/nginxReloader.sh
-COPY ./entrypoint.sh /etc/nginx/entrypoint.sh
+WORKDIR /etc/nginx
 
-RUN chmod +x /etc/nginx/entrypoint.sh
-RUN chmod +x /etc/nginx/nginxReloader.sh
+COPY ./dhparams.pem certs/dhparams.pem
+RUN rm conf.d/default.conf 
+
+COPY ./conf.d conf.d
+COPY ./nginxReloader.sh nginxReloader.sh
+COPY ./entrypoint.sh entrypoint.sh
+
+RUN chmod +x entrypoint.sh
+RUN chmod +x nginxReloader.sh
 
 RUN apk update && apk add bash
 RUN apk add inotify-tools
