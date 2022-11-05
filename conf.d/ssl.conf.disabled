@@ -22,6 +22,7 @@ server {
   ssl_certificate /etc/nginx/certs/ssl_certificate.crt;
   ssl_certificate_key /etc/nginx/certs/ssl_certificate.key;
   ssl_trusted_certificate /etc/nginx/certs/chain.pem;
+  ssl_dhparam /etc/nginx/certs/dhparams.pem;
                                                                   
   include *.locations;
 

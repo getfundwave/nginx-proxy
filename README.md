@@ -1,14 +1,16 @@
 # getfundwave/nginx-proxy
 Simple Ngnix proxy for docker that routes traffic to upstream based on path
 
-Unlike https://github.com/nginx-proxy/nginx-proxy, this repo doesn't require docker.sock. Instead the getfundwave/nginx-proxy server listens to changes in certs using inotifywait.
+Unlike https://github.com/nginx-proxy/nginx-proxy :
+(a) this repo doesn't require docker.sock. Instead the ghcr.io/getfundwave/nginx-proxy server listens to changes in certs using inotifywait.
+(b) this repo is meant for path based forwarding (/service1), instead of domain based forwarding (service1.yourdomain.com)
 
 Sample docker-compose:
 
 ```
   nginx:
     container_name: nginx
-    image: getfundwave/nginx-proxy
+    image: ghcr.io/getfundwave/nginx-proxy:alpine
     ports:
       - "80:80"
       - "443:443"
@@ -25,7 +27,7 @@ Sample docker-compose:
 
   acme:
     container_name: acme
-    image: getfundwave/nginx-acme
+    image: ghcr.io/getfundwave/nginx-acme:alpine
     depends_on:
       - "nginx"
     volumes:
